@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script type="text/javascript">
+        function soma(p1, p2) {
+            alert(p1 + p2);
+        }
+    </script>
+
+
+</head>
+
+<body>
+    <h1>Primeiro cabeçalho.</h1>
+    <h2>Segundo cabeçalho.</h2>
+    <h3>Terceiro cabeçalho.</h3>
+
+    <P>Primeiro parágrafo.</P>
+
+    <img src="/img/controle.png" title="Primeira imagem" height="80" width="80">
+
+    <a href="https://www.uft.edu.br/" target="blank">Primeiro link</a>
+
+    <h2>Lista ordenada</h2>
+    <ol>
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+    </ol>
+
+    <h2>Lista não ordenada</h2>
+    <ul>
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+    </ul>
+
+
+
+    <table border="1">
+        <tr>
+            <td>Linha 1 - coluna 1</td>
+            <td>Linha 1 - coluna 2</td>
+        </tr>
+        <tr>
+            <td>Linha 2 - coluna 1</td>
+            <td>Linha 2 - coluna 2</td>
+        </tr>
+        <tr>
+            <td>Linha 3 - coluna 1</td>
+            <td>Linha 3 - coluna 2</td>
+        </tr>
+        <tr>
+            <td>Linha 4 - coluna 1</td>
+            <td>Linha 4 - coluna 2</td>
+        </tr>
+    </table>
+
+
+    <form action="" method="post">
+        <div class="form-group">
+            <label for="login">Login <span class="required">*</span></label>
+            <input type="text" name="login" id="login" required placeholder="Digite seu login">
+        </div>
+
+        <div class="form-group">
+            <label for="senha">Senha <span class="required">*</span></label>
+            <input type="password" name="senha" id="senha" required placeholder="Digite sua senha">
+        </div>
+
+        <div class="form-group">
+            <label for="idade">Idade <span class="required">*</span></label>
+            <input type="number" min="0" max="100" step="1" name="idade" id="idade" required
+                placeholder="Digite sua idade">
+        </div>
+
+        <fieldset>
+            <legend>Sexo <span class="required">*</span></legend>
+            <div class="radio-group">
+                <div class="radio-item">
+                    <input type="radio" name="sexo" value="masculino" id="masculino" checked>
+                    <label for="masculino">Masculino</label>
+                </div>
+                <div class="radio-item">
+                    <input type="radio" name="sexo" value="feminino" id="feminino">
+                    <label for="feminino">Feminino</label>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Veículos de interesse</legend>
+            <div class="checkbox-group">
+                <div class="checkbox-item">
+                    <input type="checkbox" name="veiculos[]" value="carro1" id="carro1">
+                    <label for="carro1">Carro1</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" name="veiculos[]" value="carro2" id="carro2">
+                    <label for="carro2">Carro2</label>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="form-group">
+            <label for="curso">Curso <span class="required">*</span></label>
+            <select name="curso" id="curso" required>
+                <option value="">Selecione um curso</option>
+                <option value="ciencia_computacao">Ciência da Computação</option>
+                <option value="engenharia_civil">Engenharia Civil</option>
+                <option value="arquitetura_urbanismo">Arquitetura e Urbanismo</option>
+                <option value="licenciatura_teatro">Licenciatura em Teatro</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="mensagem">Mensagem</label>
+            <textarea id="mensagem" name="mensagem" rows="4"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="nascimento">Data de Nascimento <span class="required">*</span></label>
+            <input type="date" id="nascimento" name="nascimento" required>
+        </div>
+
+        <div class="form-group">
+            <label for="frutas">Fruta favorita</label>
+            <input list="frutas-lista" id="frutas" name="frutas" placeholder="Digite ou selecione uma fruta">
+            <datalist id="frutas-lista">
+                <option value="Maçã">
+                <option value="Banana">
+                <option value="Laranja">
+                <option value="Uva">
+                <option value="Abacaxi">
+            </datalist>
+        </div>
+
+        <input type="hidden" name="country" value="Brasil">
+
+        <div class="button-group">
+            <input type="reset" value="Limpar Formulário">
+            <input type="submit" value="Enviar Cadastro">
+            <button type="button" onclick="soma(5, 10)">Somar 5 e 10</button>
+            <button type="button" onclick="soma(20, 30)">Somar 20 e 30</button>
+        </div>
+    </form>
+
+</body>
+</body>
+
+</html>
