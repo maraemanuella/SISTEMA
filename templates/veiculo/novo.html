@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %}
+Cadastro de Veículo
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Cadastro de Veículo</h2>
+    <form method="POST" class="mt-4">
+        {% csrf_token %}
+        
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="marca">Marca:</label>
+                    <input type="text" class="form-control" id="marca" name="marca" required>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="modelo">Modelo:</label>
+                    <input type="text" class="form-control" id="modelo" name="modelo" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="ano">Ano:</label>
+                    <input type="number" class="form-control" id="ano" name="ano" min="1900" max="2025" required>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="cor">Cor:</label>
+                    <input type="text" class="form-control" id="cor" name="cor" required>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="combustivel">Combustível:</label>
+                    <select class="form-control" id="combustivel" name="combustivel" required>
+                        <option value="">Selecione...</option>
+                        <option value="gasolina">Gasolina</option>
+                        <option value="etanol">Etanol</option>
+                        <option value="diesel">Diesel</option>
+                        <option value="flex">Flex</option>
+                        <option value="eletrico">Elétrico</option>
+                        <option value="hibrido">Híbrido</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Cadastrar Veículo</button>
+                <a href="{% url 'listar-veiculos' %}" class="btn btn-secondary ms-2">Cancelar</a>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

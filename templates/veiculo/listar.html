@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Veículos{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="h4 mb-0 fw-bold">Veículos Disponíveis</h2>
+        <a href="#" class="btn btn-primary">
+            <i class="bi bi-plus-lg me-2"></i>Novo Veículo
+        </a>
+    </div>
+
+    <div class="card card-body mb-4 fade-in">
+        <form class="row g-3 align-items-center">
+            <div class="col-lg">
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-end-0">
+                        <i class="bi bi-search text-muted"></i>
+                    </span>
+                    <input type="search" class="form-control border-start-0 ps-0" name="q" placeholder="Pesquisar por marca, modelo, placa...">
+                </div>
+            </div>
+            <div class="col-lg-auto">
+                <button class="btn btn-primary w-100" type="submit">
+                    Pesquisar
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Cards de Veículos -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for veiculo in lista_veiculos %}
+        <div class="col">
+            <div class="card h-100 fade-in">
+                <!-- Imagem do Veículo -->
+                <img src="https://via.placeholder.com/400x300/f8fafc/64748b?text=Sem+Imagem" class="card-img-top" alt="Imagem do {{ veiculo.modelo }}">
+                
+                <div class="card-body">
+                    <h5 class="card-title fw-bold mb-3">{{ veiculo.get_marca_display }} {{ veiculo.modelo }}</h5>
+
+                    <div class="mb-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="bi bi-calendar3 me-2 text-primary"></i>
+                            <span>{{ veiculo.ano }}</span>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="bi bi-palette me-2 text-primary"></i>
+                            <span>{{ veiculo.get_cor_display }}</span>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-fuel-pump me-2 text-primary"></i>
+                            <span>{{ veiculo.get_combustivel_display }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer bg-white border-0 pt-0">
+                    <div class="d-flex gap-2 justify-content-end">
+                        <a href="#" class="btn btn-sm btn-outline-primary" title="Editar">
+                            <i class="bi bi-pencil me-1"></i>Editar
+                        </a>
+                        <button type="button" class="btn btn-sm btn-outline-danger" title="Excluir" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            <i class="bi bi-trash me-1"></i>Excluir
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-secondary text-center py-4">
+                Nenhum veículo encontrado.
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+

@@ -1,26 +1,34 @@
-#-*- coding: utf-8 -*-
 from django.http import HttpResponse
-from django.urls import path
-from django.shortcuts import render
-from django.views.generic import View
-from django.contrib.auth import authenticate, login   
+from django.shortcuts import render, redirect
+from django.views import View
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 
 class Login(View):
+
     def get(self, request):
         contexto = {}
-        return render(request, 'autenticacao.html', contexto)
+        if request.user.is_authenticated:
+            return redirect("/veiculo")
+        else:
+            return render(request, 'login.html', contexto)
+            
     
     def post(self, request):
-        usuario = request.POST.get('usuario', '')
-        senha = request.POST.get('senha', '')
+        usuario = request.POST.get('usuario', None)
+        senha = request.POST.get('senha', None)
 
         user = authenticate(request, username=usuario, password=senha)
-
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return HttpResponse("Login realizado com sucesso!")
-            else:
-                return render(request, 'autenticacao.html', {'erro': 'Usuário inativo.'})
+                return redirect("/veiculo")
         else:
-            return render(request, 'autenticacao.html', {'erro': 'Usuário ou senha incorretos.'})
+            messages.error(request, 'Usuário ou senha inválidos.')
+            return redirect('login')
+        
+        
+class Logout(View):
+    def get(self, request):
+        logout(request)
+        return redirect('/')
