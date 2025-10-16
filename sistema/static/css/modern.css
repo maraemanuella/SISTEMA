@@ -17,6 +17,7 @@ body {
     color: var(--text);
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     line-height: 1.6;
+    font-size: 0.75rem;
 }
 
 /* Navbar */
@@ -29,7 +30,7 @@ body {
 .navbar-brand {
     font-weight: 700;
     color: var(--primary) !important;
-    font-size: 1.5rem;
+    font-size: 1rem;
 }
 
 .nav-link {
@@ -37,6 +38,7 @@ body {
     padding: 0.75rem 1rem !important;
     border-radius: var(--radius);
     transition: var(--transition);
+    font-size: 0.75rem;
 }
 
 .nav-link:hover {
@@ -66,7 +68,7 @@ body {
 
 .card-title {
     color: var(--text);
-    font-size: 1.25rem;
+    font-size: 0.875rem;
     font-weight: 600;
 }
 
@@ -74,9 +76,10 @@ body {
 .btn {
     border-radius: var(--radius) !important;
     font-weight: 500;
-    padding: 0.625rem 1.25rem;
+    padding: 0.5rem 1rem;
     transition: var(--transition);
     border: none !important;
+    font-size: 0.75rem;
 }
 
 .btn-primary {
@@ -111,8 +114,8 @@ body {
 .form-control {
     border-radius: var(--radius) !important;
     border: 2px solid #e2e8f0 !important;
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
+    padding: 0.625rem 0.875rem;
+    font-size: 0.75rem;
     transition: var(--transition);
     background-color: var(--surface);
 }
@@ -125,6 +128,7 @@ body {
 .form-label {
     font-weight: 500;
     color: var(--text);
+    font-size: 0.75rem;
 }
 
 /* Login Page */
@@ -198,11 +202,12 @@ footer {
     }
     
     .navbar-brand {
-        font-size: 1.25rem;
+        font-size: 0.875rem;
     }
     
     .btn {
         padding: 0.5rem 1rem;
+        font-size: 0.7rem;
     }
 }
 
@@ -244,4 +249,55 @@ footer {
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--primary);
+}
+
+/* Estilos para o novo design */
+.rounded-pill {
+    border-radius: 50rem !important;
+}
+
+.btn-outline-secondary {
+    border-color: #dee2e6 !important;
+    color: #495057 !important;
+}
+
+.btn-outline-secondary.active {
+    background-color: #e9ecef !important;
+    border-color: #dee2e6 !important;
+    color: #212529 !important;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+
+.dropdown-menu {
+    min-width: 10rem;
+}
+
+.card {
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.card-body .text-end {
+    color: #dc3545 !important; /* Cor para a data no card */
+}
+
+.card-body .fw-bold.text-success {
+    color: #28a745 !important;
+}
+
+.card-body .badge.bg-success {
+    background-color: #28a745 !important;
+}
+
+.btn-dark {
+    background-color: #343a40 !important;
+    border-color: #343a40 !important;
+}
+
+.btn-dark:hover {
+    background-color: #23272b !important;
+    border-color: #1d2124 !important;
 }

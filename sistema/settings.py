@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'veiculo',
+    'anuncios',
 ]
 
 MIDDLEWARE = [
@@ -76,10 +77,16 @@ WSGI_APPLICATION = 'sistema.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'sistema',        # nome do banco de dados
+        'USER': 'postgres',       # usuário do PostgreSQL
+        'PASSWORD': '101004',     # senha do PostgreSQL
+        'HOST': 'localhost',      # conexão local
+        'PORT': '5432',           # porta padrão
     }
 }
+
+
 
 
 # Password validation
@@ -119,6 +126,10 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'static'
 STATICFILES_DIRS = [BASE_DIR / 'sistema/static']
+
+# Media files (Uploaded files)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

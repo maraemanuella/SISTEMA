@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ anuncio.titulo }}{% endblock %}
+
+{# Remove barra de pesquisa do header #}
+{% block search_bar %}
+<!-- Barra de pesquisa removida para esta página -->
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    {# Botão de Navegação - Voltar para listagem #}
+    <div class="row mb-4">
+        <div class="col-12">
+            <a href="{% url 'listar-anuncios' %}" class="btn btn-outline-secondary btn-sm rounded-pill">
+                <i class="bi bi-arrow-left me-2"></i>Voltar
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        {# COLUNA PRINCIPAL - Imagens, Descrição e Especificações #}
+        <div class="col-lg-8">
+            {# Card 1: Imagem Principal do Veículo #}
+            <div class="card shadow-sm mb-4 border-0 rounded-3">
+                <div class="card-body p-0">
+                    {% if anuncio.imagem_principal %}
+                        <img 
+                            src="{{ anuncio.imagem_principal.url }}" 
+                            class="img-fluid w-100 rounded-3" 
+                            alt="{{ anuncio.titulo }}"
+                            style="max-height: 500px; object-fit: cover;"
+                        >
+                    {% else %}
+                        <div class="bg-light d-flex align-items-center justify-content-center rounded-3" style="height: 400px;">
+                            <i class="bi bi-car-front text-muted" style="font-size: 5rem;"></i>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            {# Card 2: Descrição do Anúncio #}
+            <div class="card shadow-sm mb-4 border-0 rounded-3">
+                <div class="card-header bg-white border-0">
+                    <h4 class="mb-0">
+                        <i class="bi bi-file-text me-2"></i>Descrição
+                    </h4>
+                </div>
+                <div class="card-body">
+                    {% if anuncio.descricao %}
+                        <p class="mb-0">{{ anuncio.descricao|linebreaks }}</p>
+                    {% else %}
+                        <p class="text-muted mb-0">Sem descrição disponível.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            {# Card 3: Especificações Técnicas do Veículo #}
+            <div class="card shadow-sm mb-4 border-0 rounded-3">
+                <div class="card-header bg-white border-0">
+                    <h4 class="mb-0">
+                        <i class="bi bi-list-check me-2"></i>Especificações do Veículo
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <strong><i class="bi bi-tag-fill me-2 text-muted"></i>Marca:</strong>
+                            <span class="float-end">{{ anuncio.get_marca_display }}</span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <strong><i class="bi bi-car-front-fill me-2 text-muted"></i>Modelo:</strong>
+                            <span class="float-end">{{ anuncio.modelo }}</span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <strong><i class="bi bi-calendar3 me-2 text-muted"></i>Ano:</strong>
+                            <span class="float-end">{{ anuncio.ano }}</span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <strong><i class="bi bi-speedometer2 me-2 text-muted"></i>Quilometragem:</strong>
+                            <span class="float-end">{{ anuncio.get_km_formatado }}</span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <strong><i class="bi bi-gear-fill me-2 text-muted"></i>Câmbio:</strong>
+                            <span class="float-end">{{ anuncio.get_cambio_display }}</span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <strong><i class="bi bi-fuel-pump-fill me-2 text-muted"></i>Combustível:</strong>
+                            <span class="float-end">{{ anuncio.get_combustivel_display }}</span>
+                        </div>
+                        {% if anuncio.cor %}
+                        <div class="col-md-6 mb-3">
+                            <strong><i class="bi bi-palette-fill me-2 text-muted"></i>Cor:</strong>
+                            <span class="float-end">{{ anuncio.get_cor_display }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# COLUNA LATERAL - Preço, Localização e Anunciante #}
+        <div class="col-lg-4">
+            {# Card 1: Preço e Botão de Contato #}
+            <div class="card shadow-sm mb-4 border-0 rounded-3">
+                <div class="card-body text-center">
+                    <h5 class="text-muted mb-2">Preço</h5>
+                    <h2 class="text-success mb-3">{{ anuncio.get_preco_formatado }}</h2>
+                    
+                    <hr>
+                    
+                    <button class="btn btn-dark btn-lg w-100 rounded-pill">
+                        <i class="bi bi-whatsapp me-2"></i>Entrar em Contato
+                    </button>
+                </div>
+            </div>
+
+            {# Card 2: Informações de Localização #}
+            {% if anuncio.cidade or anuncio.estado %}
+            <div class="card shadow-sm mb-4 border-0 rounded-3">
+                <div class="card-header bg-white border-0">
+                    <h5 class="mb-0">
+                        <i class="bi bi-geo-alt-fill me-2"></i>Localização
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <p class="mb-0">
+                        <i class="bi bi-pin-map me-2"></i>
+                        {% if anuncio.cidade %}{{ anuncio.cidade }}{% endif %}
+                        {% if anuncio.cidade and anuncio.estado %} - {% endif %}
+                        {% if anuncio.estado %}{{ anuncio.estado }}{% endif %}
+                    </p>
+                </div>
+            </div>
+            {% endif %}
+
+            {# Card 3: Dados do Anunciante e Data de Publicação #}
+            <div class="card shadow-sm mb-4 border-0 rounded-3">
+                <div class="card-header bg-white border-0">
+                    <h5 class="mb-0">
+                        <i class="bi bi-person-circle me-2"></i>Anunciante
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if anuncio.usuario %}
+                        <p class="mb-2">
+                            <strong>Nome:</strong> {{ anuncio.usuario.get_full_name|default:anuncio.usuario.username }}
+                        </p>
+                    {% else %}
+                        <p class="text-muted mb-0">Informações não disponíveis</p>
+                    {% endif %}
+                    <p class="text-muted small mb-0">
+                        <i class="bi bi-clock"></i> Publicado em {{ anuncio.data_publicacao|date:"d/m/Y 'às' H:i" }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# Seção de Anúncios Relacionados - Mesma marca do anúncio atual #}
+    {% if anuncios_relacionados %}
+    <div class="row mt-5">
+        <div class="col-12">
+            <h3 class="mb-4">
+                <i class="bi bi-grid-3x3-gap me-2"></i>Anúncios Relacionados
+            </h3>
+        </div>
+        {# Grid de Cards Relacionados - 4 colunas #}
+        {% for relacionado in anuncios_relacionados %}
+        <div class="col-md-3 mb-4">
+            <div class="card shadow-sm h-100 border-0 rounded-3">
+                <div class="position-relative overflow-hidden rounded-top" style="height: 180px; background-color: #f8f9fa;">
+                    {% if relacionado.imagem_principal %}
+                        <img
+                            src="{{ relacionado.imagem_principal.url }}"
+                            class="w-100 h-100"
+                            alt="{{ relacionado.titulo }}"
+                            style="object-fit: cover;"
+                            loading="lazy"
+                        >
+                    {% else %}
+                        <div class="d-flex align-items-center justify-content-center h-100 bg-light">
+                            <i class="bi bi-car-front text-muted" style="font-size: 2.5rem;"></i>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <h6 class="card-title text-truncate">{{ relacionado.titulo }}</h6>
+                    <p class="text-muted small mb-2">{{ relacionado.get_marca_display }} {{ relacionado.modelo }}</p>
+                    <h5 class="text-success">{{ relacionado.get_preco_formatado }}</h5>
+                    <a href="{% url 'detalhe-anuncio' relacionado.pk %}" class="btn btn-dark btn-sm w-100 rounded-pill">
+                        Ver Detalhes
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

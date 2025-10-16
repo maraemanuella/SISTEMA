@@ -1,0 +1,20 @@
+<div class="col-md-4 mb-4">
+    <div class="card shadow-sm h-100 border-0 rounded-3">
+        <div class="card-body">
+            <p class="card-text text-muted small text-end">{{ anuncio.data_publicacao|date:"d M, H:i" }}</p>
+            <h5 class="card-title">{{ anuncio.titulo }}</h5>
+            <p class="card-text text-muted"><i class="bi bi-geo-alt-fill"></i> {{ anuncio.cidade }} - {{ anuncio.estado }}</p>
+            <p class="card-text">
+                {% if anuncio.preco_original %}
+                    <span class="text-decoration-line-through text-muted">R$ {{ anuncio.preco_original|floatformat:2 }}</span>
+                {% endif %}
+                <span class="fw-bold text-success me-2">R$ {{ anuncio.preco|floatformat:2 }}</span>
+                {% if anuncio.desconto %}
+                    <span class="badge bg-success">{{ anuncio.desconto }}% OFF</span>
+                {% endif %}
+            </p>
+            <p class="card-text text-muted"><i class="bi bi-people-fill"></i> 85% comparecimento</p>
+            <a href="{% url 'detalhe-anuncio' anuncio.pk %}" class="btn btn-dark w-100 rounded-pill mt-3">Ver detalhes</a>
+        </div>
+    </div>
+</div>

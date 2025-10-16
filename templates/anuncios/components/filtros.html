@@ -1,0 +1,66 @@
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form method="GET" class="row g-3">
+            <!-- Pesquisa -->
+            <div class="col-md-12 mb-3">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" 
+                           placeholder="Buscar por título, marca, modelo ou cidade..." 
+                           value="{{ query|default:'' }}">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-search"></i> Buscar
+                    </button>
+                    {% if query %}
+                        <a href="{% url 'listar-anuncios' %}" class="btn btn-secondary">
+                            <i class="bi bi-x"></i> Limpar
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Filtros -->
+            <div class="col-md-3">
+                <select name="marca" class="form-select">
+                    <option value="">Todas as Marcas</option>
+                    {% for valor, nome in marcas %}
+                        <option value="{{ valor }}" {% if filtro_marca == valor %}selected{% endif %}>
+                            {{ nome }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <select name="combustivel" class="form-select">
+                    <option value="">Todos os Combustíveis</option>
+                    {% for valor, nome in combustiveis %}
+                        <option value="{{ valor }}" {% if filtro_combustivel == valor %}selected{% endif %}>
+                            {{ nome }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <select name="cambio" class="form-select">
+                    <option value="">Todos os Câmbios</option>
+                    {% for valor, nome in cambios %}
+                        <option value="{{ valor }}" {% if filtro_cambio == valor %}selected{% endif %}>
+                            {{ nome }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <select name="ordem" class="form-select">
+                    {% for valor, nome in ordenacoes %}
+                        <option value="{{ valor }}" {% if ordem == valor %}selected{% endif %}>
+                            {{ nome }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </form>
+    </div>
+</div>

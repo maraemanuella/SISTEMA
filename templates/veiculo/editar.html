@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% block title %}
+Editar Veículo
+{% endblock %}
+
+{% block search_bar %}
+<!-- Barra de pesquisa removida para esta página -->
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- Botão Voltar -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <a href="{% url 'listar-veiculos' %}" class="btn btn-outline-secondary btn-sm rounded-pill">
+                <i class="bi bi-arrow-left me-2"></i>Voltar
+            </a>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-header bg-white border-0">
+                    <h2 class="h4 mb-0">
+                        <i class="bi bi-pencil-square me-2"></i>Editar Veículo
+                    </h2>
+                </div>
+                <div class="card-body">
+                    {% if form.errors %}
+                        <div class="alert alert-danger border-0 rounded-3">
+                            <h6><i class="bi bi-exclamation-triangle me-2"></i>Erro no formulário:</h6>
+                            {{ form.errors }}
+                        </div>
+                    {% endif %}
+                    
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="{{ form.marca.id_for_label }}" class="form-label fw-semibold">
+                                        <i class="bi bi-tag-fill me-2 text-muted"></i>{{ form.marca.label }}:
+                                    </label>
+                                    {{ form.marca }}
+                                    {% if form.marca.errors %}
+                                        <div class="text-danger small">{{ form.marca.errors }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="{{ form.modelo.id_for_label }}" class="form-label fw-semibold">
+                                        <i class="bi bi-car-front-fill me-2 text-muted"></i>{{ form.modelo.label }}:
+                                    </label>
+                                    {{ form.modelo }}
+                                    {% if form.modelo.errors %}
+                                        <div class="text-danger small">{{ form.modelo.errors }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="{{ form.ano.id_for_label }}" class="form-label fw-semibold">
+                                        <i class="bi bi-calendar3 me-2 text-muted"></i>{{ form.ano.label }}:
+                                    </label>
+                                    {{ form.ano }}
+                                    {% if form.ano.errors %}
+                                        <div class="text-danger small">{{ form.ano.errors }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="{{ form.cor.id_for_label }}" class="form-label fw-semibold">
+                                        <i class="bi bi-palette-fill me-2 text-muted"></i>{{ form.cor.label }}:
+                                    </label>
+                                    {{ form.cor }}
+                                    {% if form.cor.errors %}
+                                        <div class="text-danger small">{{ form.cor.errors }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="{{ form.combustivel.id_for_label }}" class="form-label fw-semibold">
+                                        <i class="bi bi-fuel-pump-fill me-2 text-muted"></i>{{ form.combustivel.label }}:
+                                    </label>
+                                    {{ form.combustivel }}
+                                    {% if form.combustivel.errors %}
+                                        <div class="text-danger small">{{ form.combustivel.errors }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="{{ form.foto.id_for_label }}" class="form-label fw-semibold">
+                                        <i class="bi bi-camera-fill me-2 text-muted"></i>{{ form.foto.label }}:
+                                    </label>
+                                    
+                                    <!-- Exibir foto atual se existir -->
+                                    {% if veiculo.foto %}
+                                        <div class="mb-3">
+                                            <p class="text-muted small">Foto atual:</p>
+                                            <img src="{{ veiculo.foto.url }}" alt="Foto atual do veículo" class="img-thumbnail rounded-3" style="max-width: 200px; max-height: 200px;">
+                                        </div>
+                                    {% endif %}
+                                    
+                                    {{ form.foto }}
+                                    {% if form.foto.errors %}
+                                        <div class="text-danger small">{{ form.foto.errors }}</div>
+                                    {% endif %}
+                                    <div class="form-text text-muted">
+                                        <i class="bi bi-info-circle me-1"></i>Formatos aceitos: JPG, PNG, GIF. Tamanho máximo: 5MB. Deixe em branco para manter a foto atual.
+                                    </div>
+                                    
+                                    <!-- Preview da nova imagem -->
+                                    <div class="mt-3">
+                                        <img id="preview-foto" src="#" alt="Preview da nova foto" style="max-width: 200px; max-height: 200px; display: none;" class="img-thumbnail rounded-3">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-12 d-flex gap-2">
+                                <button type="submit" class="btn btn-dark rounded-pill px-4">
+                                    <i class="bi bi-check-lg me-2"></i>Salvar Alterações
+                                </button>
+                                <a href="{% url 'listar-veiculos' %}" class="btn btn-outline-secondary rounded-pill px-4">
+                                    <i class="bi bi-x-lg me-2"></i>Cancelar
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const fotoInput = document.getElementById('{{ form.foto.id_for_label }}');
+    const previewImg = document.getElementById('preview-foto');
+    
+    if (fotoInput) {
+        fotoInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImg.src = e.target.result;
+                    previewImg.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                previewImg.style.display = 'none';
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

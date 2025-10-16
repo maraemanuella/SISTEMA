@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static anuncio_tags %}
+
+{% block title %}Anúncios de Carros{% endblock %}
+
+{# Sobrescreve o bloco search_bar do base.html para remover a barra de pesquisa #}
+{% block search_bar %}
+<!-- Barra de pesquisa removida para esta página -->
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    {# Grid de Cards de Anúncios - 3 colunas em desktop, responsivo em mobile #}
+    <div class="row">
+        {% if anuncios %}
+            {# Loop pelos anúncios disponíveis #}
+            {% for anuncio in anuncios %}
+                <div class="col-md-4 mb-4">
+                    {# Card de Anúncio - Design: shadow-sm, border-0, rounded-3 #}
+                    <div class="card shadow-sm h-100 border-0 rounded-3">
+                        {# Imagem do Veículo - altura fixa 200px, object-fit cover #}
+                        {% if anuncio.imagem_principal %}
+                            <div class="position-relative overflow-hidden rounded-top" style="height: 200px; background-color: #f8f9fa;">
+                                <img
+                                    src="{{ anuncio.imagem_principal.url }}"
+                                    class="w-100 h-100"
+                                    alt="{{ anuncio.titulo }}"
+                                    style="object-fit: cover; object-position: center;"
+                                    loading="lazy"
+                                >
+                            </div>
+                        {% else %}
+                            <div class="position-relative overflow-hidden rounded-top d-flex align-items-center justify-content-center bg-light" style="height: 200px;">
+                                <i class="bi bi-car-front text-muted" style="font-size: 3rem;"></i>
+                            </div>
+                        {% endif %}
+                        <div class="card-body">
+                            {# Data de publicação #}
+                            <p class="card-text text-muted small text-end">{{ anuncio.data_publicacao|date:"d M, H:i" }}</p>
+                            
+                            {# Título do anúncio #}
+                            <h5 class="card-title">{{ anuncio.titulo }}</h5>
+                            
+                            {# Marca e Modelo #}
+                            <p class="card-text text-muted">
+                                <i class="bi bi-car-front-fill"></i> {{ anuncio.get_marca_display }} {{ anuncio.modelo }}
+                            </p>
+                            
+                            {# Localização (Cidade e Estado) #}
+                            {% if anuncio.cidade or anuncio.estado %}
+                            <p class="card-text text-muted">
+                                <i class="bi bi-geo-alt-fill"></i> 
+                                {% if anuncio.cidade %}{{ anuncio.cidade }}{% endif %}
+                                {% if anuncio.cidade and anuncio.estado %} - {% endif %}
+                                {% if anuncio.estado %}{{ anuncio.estado }}{% endif %}
+                            </p>
+                            {% endif %}
+                            
+                            {# Preço formatado #}
+                            <p class="card-text">
+                                <span class="fw-bold text-success">{{ anuncio.get_preco_formatado }}</span>
+                            </p>
+                            
+                            {# Quilometragem formatada #}
+                            <p class="card-text text-muted">
+                                <i class="bi bi-speedometer2"></i> {{ anuncio.get_km_formatado }}
+                            </p>
+                            
+                            {# Botão Ver Detalhes #}
+                            <a href="{% url 'detalhe-anuncio' anuncio.pk %}" class="btn btn-dark w-100 rounded-pill mt-3">Ver detalhes</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            {# Mensagem quando não há anúncios #}
+            <div class="col-12">
+                <div class="alert alert-warning text-center" role="alert">
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+                    Nenhum anúncio encontrado.
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    {# Botão Flutuante para Criar Novo Anúncio #}
+    <div class="row mt-5 mb-4">
+        <div class="col-12 text-center">
+            <a href="{% url 'criar-anuncio' %}" class="btn btn-dark btn-lg rounded-pill px-5">
+                <i class="bi bi-plus-circle me-2"></i>Criar Novo Anúncio
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
