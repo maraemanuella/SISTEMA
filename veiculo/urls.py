@@ -1,5 +1,16 @@
 from django.urls import path
-from veiculo.views import *
+
+from veiculo.views import (
+    CriarVeiculo,
+    DeletarVeiculo,
+    EditarVeiculo,
+    FotoVeiculo,
+    ListarVeiculos,
+)
+
+
+app_name = 'veiculo'
+
 
 urlpatterns = [
     path('', ListarVeiculos.as_view(), name='listar-veiculos'),

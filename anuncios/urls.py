@@ -3,7 +3,12 @@ URLs para o app de anúncios de carros.
 Define as rotas para listagem, criação e visualização de anúncios.
 """
 from django.urls import path
+
 from anuncios import views
+
+
+app_name = 'anuncios'
+
 
 urlpatterns = [
     # Listagem de anúncios

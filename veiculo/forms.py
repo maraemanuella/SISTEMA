@@ -1,5 +1,11 @@
-from django.forms import ModelForm, Select, TextInput, NumberInput, FileInput
+from datetime import datetime
+
+from django.forms import FileInput, ModelForm, NumberInput, Select, TextInput
+
 from veiculo.models import Veiculo
+
+
+CURRENT_YEAR = datetime.now().year
 
 class FormularioVeiculo(ModelForm):
     class Meta:
@@ -18,7 +24,7 @@ class FormularioVeiculo(ModelForm):
             'ano': NumberInput(attrs={
                 'class': 'form-control',
                 'min': 1900,
-                'max': 2025,
+                'max': CURRENT_YEAR + 1,
                 'required': True
             }),
             'cor': Select(attrs={

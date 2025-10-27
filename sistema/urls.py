@@ -18,14 +18,16 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from sistema.views import Login, Logout
+from sistema.views import LoginView, LogoutView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', Login.as_view(), name='login'),
-    path('logout/', Logout.as_view(), name='logout'),
+    path('', LoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
     path('veiculo/', include('veiculo.urls'), name='veiculo'),
     path('anuncios/', include('anuncios.urls'), name='anuncios'),
+    path('api/', include(('sistema.api_urls', 'api'), namespace='api')),
 ]
 
 # Adicionar URLs para servir arquivos de mídia durante o desenvolvimento

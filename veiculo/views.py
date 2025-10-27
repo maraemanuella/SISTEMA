@@ -7,7 +7,11 @@ from django.http import Http404
 from django.contrib import messages
 from veiculo.models import Veiculo
 from veiculo.forms import FormularioVeiculo
-from veiculo.const import OPCOES_MARCAS, OPCOES_CORES, OPCOES_COMBUSTIVEL
+from sistema.constantes import (
+    OPCOES_MARCAS,
+    OPCOES_CORES,
+    OPCOES_COMBUSTIVEL,
+)
 
 class ListarVeiculos(LoginRequiredMixin, ListView):
     model = Veiculo

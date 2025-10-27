@@ -1,0 +1,47 @@
+{
+  "client": "Thunder Client",
+  "collectionName": "Sistema API",
+  "dateExported": "2025-10-23T23:40:00.000Z",
+  "version": "1.1",
+  "folders": [],
+  "requests": [
+    {
+      "name": "GET - Listar Veículos",
+      "method": "GET",
+      "url": "http://127.0.0.1:8000/api/listar/",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Token c7b2561fe6374304a6bd975a4edbfea5443a40de"
+        }
+      ],
+      "tests": []
+    },
+    {
+      "name": "POST - Obter Token",
+      "method": "POST",
+      "url": "http://127.0.0.1:8000/api/token-auth/",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/x-www-form-urlencoded"
+        }
+      ],
+      "body": {
+        "type": "formencoded",
+        "raw": "",
+        "form": [
+          {
+            "name": "username",
+            "value": "apiuser"
+          },
+          {
+            "name": "password",
+            "value": "api123456"
+          }
+        ]
+      },
+      "tests": []
+    }
+  ]
+}

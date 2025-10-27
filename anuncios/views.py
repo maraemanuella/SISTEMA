@@ -26,11 +26,13 @@ class ListarAnuncios(ListView):
 
     def get_queryset(self):
         """Retorna queryset filtrado e ordenado"""
-        queryset = AnuncioCarro.objects.filter(status='ativo')
-        queryset = self._aplicar_busca(queryset)
-        queryset = self._aplicar_filtros(queryset)
-        queryset = self._aplicar_ordenacao(queryset)
-        return queryset
+        if not hasattr(self, '_cached_queryset'):
+            queryset = AnuncioCarro.objects.filter(status='ativo')
+            queryset = self._aplicar_busca(queryset)
+            queryset = self._aplicar_filtros(queryset)
+            queryset = self._aplicar_ordenacao(queryset)
+            self._cached_queryset = queryset
+        return self._cached_queryset
     
     def _aplicar_busca(self, queryset):
         """Aplica busca por texto em múltiplos campos"""
@@ -68,9 +70,10 @@ class ListarAnuncios(ListView):
     def get_context_data(self, **kwargs):
         """Adiciona dados extras ao contexto para filtros e estatísticas"""
         context = super().get_context_data(**kwargs)
+        queryset = self.get_queryset()
         context.update({
             'query': self.request.GET.get('q', ''),
-            'total_anuncios': self.get_queryset().count(),
+            'total_anuncios': queryset.count(),
             'filtro_marca': self.request.GET.get('marca', ''),
             'filtro_combustivel': self.request.GET.get('combustivel', ''),
             'filtro_cambio': self.request.GET.get('cambio', ''),
